@@ -1,4 +1,4 @@
-function MapsFactory ( options ) { 
+function MapsFactory ( options ) {
   switch(options.mapType){
     case "MapBox":
       this.mapClass = MapBox;
