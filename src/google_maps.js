@@ -1,6 +1,7 @@
 function GoogleMaps( options ) {
   this.options = {};
   this.markers = [];
+  this.polylines = [];
   // some defaults
   this.options.div = options.div || "#maps";
 
@@ -24,17 +25,51 @@ GoogleMaps.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
   }
-  var position = options.position;
-  if ( !position ) {
-    position = new google.maps.LatLng(options.lat, options.lng);
+  var self = this,
+      details = options.details,
+      fences = options.fences,
+      outside = options.outside,
+      base_options = {
+        position: new google.maps.LatLng(options.lat, options.lng),
+        map: null
+      },
+      marker_options = extend_object(base_options, options);
+
+  delete marker_options.lat;
+  delete marker_options.lng;
+  delete marker_options.fences;
+  delete marker_options.outside;
+
+  var marker = new google.maps.Marker(marker_options);
+
+  marker.fences = fences;
+
+  if (options.infoWindow) {
+    marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
   }
 
-  var marker = new google.maps.Marker({
-      position: position,
-      draggable: options.draggable,
-      title: options.title
+  google.maps.event.addListener(marker, 'click', function() {
+    this.details = details;
+
+    if (options.click) {
+      options.click.apply(this, [this]);
+    }
+
+    if (marker.infoWindow) {
+      self.hideInfoWindows();
+      marker.infoWindow.open(self.map, marker);
+    }
   });
+
   return marker;
+};
+
+GoogleMaps.prototype.hideInfoWindows = function() {
+  for (var i = 0, marker; marker = this.markers[i]; i++){
+    if (marker.infoWindow) {
+      marker.infoWindow.close();
+    }
+  }
 };
 
 GoogleMaps.prototype.addMarker = function(options) {
@@ -101,21 +136,7 @@ GoogleMaps.prototype.drawPolyline = function(options) {
 
   var polyline = new google.maps.Polyline(polyline_options);
 
-  var polyline_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
-
-  for (var ev = 0; ev < polyline_events.length; ev++) {
-    (function(object, name) {
-      if (options[name]) {
-        google.maps.event.addListener(object, name, function(e){
-          options[name].apply(this, [e]);
-        });
-      }
-    })(polyline, polyline_events[ev]);
-  }
-
   this.polylines.push(polyline);
-
-  GMaps.fire('polyline_added', polyline, this);
 
   return polyline;
 };

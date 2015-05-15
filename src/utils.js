@@ -10,3 +10,17 @@ var getElementById = function(id, context) {
 
   return element;
 };
+
+var extend_object = function(obj, new_obj) {
+  var name;
+
+  if (obj === new_obj) {
+    return obj;
+  }
+
+  for (name in new_obj) {
+    obj[name] = new_obj[name];
+  }
+
+  return obj;
+};

@@ -16,7 +16,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
-        map.addMarker({lat: -33.4205452, lng: -70.5898197})
+        map.addMarker({lat: -33.4205452, lng: -70.5898197, infoWindow: {content: '<p>HTML Content</p>'}})
 
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
         map.drawPolyline({
