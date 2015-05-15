@@ -1,0 +1,28 @@
+{
+  "name": "maps-factory",
+  "license": "MIT",
+  "copyright": "2015",
+  "description": " ",
+  "keywords": [
+    "maps"
+  ],
+  "homepage": "",
+  "bugs": "",
+  "author": {
+    "name": "",
+    "url": ""
+  },
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "grunt-contrib-uglify": "~0.7.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "gunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}

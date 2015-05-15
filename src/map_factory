@@ -1,0 +1,6 @@
+var map-factory = {
+  addMarker: function(){
+
+  }
+
+}
