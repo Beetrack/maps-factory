@@ -17,6 +17,16 @@
       $(document).ready(function() {
         map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
         map.addMarker({lat: -33.4205452, lng: -70.5898197})
+
+        var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
+        map.drawPolyline({
+          path: bounds,
+          strokeColor: '#0000000',
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          fillColor: '#BBD8E9',
+          fillOpacity: 0.6
+        });
       });
     </script>
   </head>
