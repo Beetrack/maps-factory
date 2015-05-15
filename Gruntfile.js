@@ -82,6 +82,6 @@ module.exports = function (grunt) {
 };
 
 module.exports.jsFiles = [
-    'src/map_factory.js',
-    'src/test.js'
+    'src/maps_factory.js',
+    'src/google_maps.js'
 ];

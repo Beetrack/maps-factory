@@ -1,4 +1,4 @@
-var map_factory = {
+var MapsFactory = {
   addMarker: function(){
 
   }
