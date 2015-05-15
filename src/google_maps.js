@@ -1,5 +1,6 @@
 function GoogleMaps( options ) {
   this.options = {};
+  this.markers = [];
   // some defaults
   this.options.div = options.div || "#maps";
 

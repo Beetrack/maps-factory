@@ -15,8 +15,8 @@
     <script src="../maps_factory.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map'});
-        console.log(map);
+        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
+        map.addMarker({lat: -33.4205452, lng: -70.5898197})
       });
     </script>
   </head>
