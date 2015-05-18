@@ -85,5 +85,6 @@ module.exports.jsFiles = [
     'src/utils.js',
     'src/map_box.js',
     'src/google_maps.js',
+    'src/leafletjs.js',
     'src/maps_factory.js'
 ];
