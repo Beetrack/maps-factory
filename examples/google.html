@@ -28,6 +28,14 @@
           fillOpacity: 0.6
         });
 
+        var input = document.getElementById('address');
+        var options = {
+          types: ['geocode']
+          //componentRestrictions: {country: 'cl'}
+        };
+
+        autocomplete = new google.maps.places.Autocomplete(input, options);
+
         $('#geocoding_form').submit(function(e){
           e.preventDefault();
           map.geocode({
