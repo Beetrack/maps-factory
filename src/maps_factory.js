@@ -33,7 +33,7 @@ MapsFactory.prototype.distanceBetween = function(waypoint1, waypoint2) {
 MapsFactory.prototype.lineDistance = function(waypoints) {
   var distance = 0;
   for(var i = 0; i< waypoints.length - 1; i++){
-    distance+= this.distanceBetween(waypoint[i], waypoint[i + 1];
+    distance = distance +  this.distanceBetween(waypoint[i], waypoint[i + 1]);
   }
   return distance;
 };
