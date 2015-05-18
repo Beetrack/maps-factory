@@ -28,7 +28,6 @@
           fillOpacity: 0.6
         });
 
-        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
         $('#geocoding_form').submit(function(e){
           e.preventDefault();
           map.geocode({
@@ -56,6 +55,7 @@
           <input type="submit" class="btn" value="Search" />
         </div>
       </form>
+      <a href="#" onClick="" >fitBounds </a>
   </body>
   <div id="map" ></div>
 </html>

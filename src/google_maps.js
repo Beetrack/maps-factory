@@ -3,7 +3,8 @@ function GoogleMaps( options ) {
   this.markers = [];
   this.polylines = [];
   // some defaults
-  this.options.div = options.div || "#map";
+  this.options.div = options.div || "#maps";
+
   //init
   if (!(typeof window.google === 'object' && window.google.maps)) {
     throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
@@ -140,7 +141,7 @@ GoogleMaps.prototype.drawPolyline = function(options) {
   return polyline;
 };
 
-GoogleMaps.geocode = function(options) {
+GoogleMaps.prototype.geocode = function(options) {
   this.geocoder = new google.maps.Geocoder();
   var callback = options.callback;
   if (options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) {
@@ -156,6 +157,13 @@ GoogleMaps.geocode = function(options) {
   });
 };
 
+GoogleMaps.prototype.setCenter = function(lat, lng, callback) {
+  this.map.panTo(new google.maps.LatLng(lat, lng));
+
+  if (callback) {
+    callback();
+  }
+};
 
 GoogleMaps.prototype.fitBounds = function(array) {
   var bounds = new google.maps.LatLngBounds();
