@@ -150,8 +150,25 @@ GoogleMaps.geocode = function(options) {
   delete options.lat;
   delete options.lng;
   delete options.callback;
-  
+
   this.geocoder.geocode(options, function(results, status) {
     callback(results, status);
   });
+};
+
+
+GoogleMaps.prototype.fitBounds = function(array) {
+  var bounds = new google.maps.LatLngBounds();
+  for (var index in array) {
+    var waypoint = new google.maps.LatLng(array[index][0],array[index][1])
+    bounds.extend(waypoint);
+  }
+  if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+    var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+    var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+    bounds.extend(extendPoint1);
+    bounds.extend(extendPoint2);
+  }
+
+  this.map.fitBounds(bounds);
 };
