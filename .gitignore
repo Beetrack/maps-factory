@@ -13,6 +13,7 @@ bower_components
 
 # vim files
 .*.swp
+.*.orig
 
 # mac
 .DS_Store
@@ -25,6 +26,9 @@ bower_components
 
 # jasmine spec runners
 spec/*.html
+
+# orig files
+*.orig
 
 # coverage reports
 coverage
