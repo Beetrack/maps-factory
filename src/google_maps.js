@@ -230,3 +230,4 @@ GoogleMaps.prototype.fitBounds = function(array) {
 
   this.map.fitBounds(bounds);
 };
+
