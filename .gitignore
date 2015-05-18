@@ -13,6 +13,7 @@ bower_components
 
 # vim files
 .*.swp
+.*.orig
 
 # mac
 .DS_Store
@@ -36,3 +37,7 @@ spec/index-browserify.html
 # font noise from some doc tool
 web/docs/public
 
+# minified
+maps_factory.js
+maps_factory.min.js
+maps_factory.min.js.map

@@ -15,12 +15,47 @@
     <script src="../maps_factory.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map'});
-        console.log(map);
+        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
+        map.addMarker({lat: -33.4205452, lng: -70.5898197, infoWindow: {content: '<p>HTML Content</p>'}})
+
+        var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
+        map.drawPolyline({
+          path: bounds,
+          strokeColor: '#0000000',
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          fillColor: '#BBD8E9',
+          fillOpacity: 0.6
+        });
+
+        map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
+        $('#geocoding_form').submit(function(e){
+          e.preventDefault();
+          map.geocode({
+            address: $('#address').val().trim(),
+            callback: function(results, status){
+              if(status=='OK'){
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                map.addMarker({
+                  lat: latlng.lat(),
+                  lng: latlng.lng()
+                });
+              }
+            }
+          });
+        });
       });
     </script>
   </head>
   <body>
+  <form method="post" id="geocoding_form">
+        <label for="address">Address:</label>
+        <div class="input">
+          <input type="text" id="address" name="address" />
+          <input type="submit" class="btn" value="Search" />
+        </div>
+      </form>
   </body>
   <div id="map" ></div>
 </html>
