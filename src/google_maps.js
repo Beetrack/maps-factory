@@ -91,6 +91,21 @@ GoogleMaps.prototype.addMarker = function(options) {
   return marker;
 };
 
+GoogleMaps.prototype.removeMarker = function(marker) {
+  for (var i = 0; i < this.markers.length; i++) {
+    if (this.markers[i] === marker) {
+      this.markers[i].setMap(null);
+      this.markers.splice(i, 1);
+
+      if(this.markerClusterer) {
+        this.markerClusterer.removeMarker(marker);
+      }
+      break;
+    }
+  }
+  return marker;
+};
+
 GoogleMaps.prototype.drawPolyline = function(options) {
   var path = [],
       points = options.path;
