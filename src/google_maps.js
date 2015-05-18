@@ -106,9 +106,16 @@ GoogleMaps.prototype.removeMarker = function(marker) {
   return marker;
 };
 
+GoogleMaps.prototype.removeMarkers = function(){
+  var markers = this.markers.slice(0);
+  for (var i = 0; i < markers.length; i++) {
+    this.removeMarker(markers[i]);
+  }
+}
+
 GoogleMaps.prototype.drawPolyline = function(options) {
   var path = [],
-      points = options.path;
+  points = options.path;
 
   if (points.length) {
     if (points[0][0] === undefined) {
