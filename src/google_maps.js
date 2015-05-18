@@ -11,8 +11,8 @@ function GoogleMaps( options ) {
     throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
   }
   this.options.zoom = options.zoom || 8;
-  this.options.lat = options.lat || -34.397;
-  this.options.lng = options.lng || 150.644;
+  this.options.lat = options.lat || 0;
+  this.options.lng = options.lng || 0;
 
   this.mapOptions = {
     zoom: this.options.zoom,
@@ -167,7 +167,7 @@ GoogleMaps.prototype.geocode = function(options) {
   delete options.lat;
   delete options.lng;
   delete options.callback;
-  
+
   this.geocoder.geocode(options, function(results, status) {
     callback(results, status);
   });
@@ -198,4 +198,28 @@ GoogleMaps.prototype.setCenter = function(lat, lng, callback) {
   if (callback) {
     callback();
   }
+};
+
+GoogleMaps.prototype.fitBounds = function(array) {
+  var bounds = new google.maps.LatLngBounds();
+  if(!!array){
+    for (var index in array) {
+      var waypoint = new google.maps.LatLng(array[index][0],array[index][1]);
+      bounds.extend(waypoint);
+    }
+  }
+  else{
+    for (var index in this.markers) {
+      bounds.extend(this.markers[index].getPosition());
+    }
+
+  }
+  if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+    var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+    var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+    bounds.extend(extendPoint1);
+    bounds.extend(extendPoint2);
+  }
+
+  this.map.fitBounds(bounds);
 };

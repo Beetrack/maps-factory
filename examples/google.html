@@ -32,6 +32,14 @@
           fillOpacity: 0.6
         });
 
+        var input = document.getElementById('address');
+        var options = {
+          types: ['geocode']
+          //componentRestrictions: {country: 'cl'}
+        };
+
+        autocomplete = new google.maps.places.Autocomplete(input, options);
+
         $('#geocoding_form').submit(function(e){
           e.preventDefault();
           map.geocode({
@@ -51,7 +59,15 @@
 
         $("#remove_marker").click(function () {
           map.removeMarker(map.markers[map.markers.length - 1]);
-        });        
+        });
+        $("#fit_bounds").click(function(){
+          if(map.markers.length < 2){
+            map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
+          }
+          else{
+            map.fitBounds();
+        }
+        });
 
       });
     </script>
@@ -68,5 +84,6 @@
       </div>
     </form>
     <button id="remove_marker" style="float: left">Remove marker</button>
+    <button id="fit_bounds"  >fit Bounds </button>
   </div>
 </html>
