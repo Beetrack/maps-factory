@@ -1,3 +1,16 @@
+var getElementById = function(id, context) {
+  var element,
+  id = id.replace('#', '');
+
+  if ('jQuery' in window && context) {
+    element = $('#' + id, context)[0];
+  } else {
+    element = document.getElementById(id);
+  };
+
+  return element;
+};
+
 function MapBox( options ) {
   this.options = {};
   // some defaults
@@ -7,14 +20,14 @@ function MapBox( options ) {
 function GoogleMaps( options ) {
   this.options = {};
   // some defaults
-  this.options.div = options.div || "#maps";
+  this.options.div = options.div || "#map";
   //init
   if (!(typeof window.google === 'object' && window.google.maps)) {
     throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
   }
   this.options.zoom = options.zoom || 8;
-  this.options.lat = options.lat || -34.397;
-  this.options.lng = options.lng || 150.644;
+  this.options.lat = options.lat || 0;
+  this.options.lng = options.lng || 0;
 
   this.mapOptions = {
     zoom: this.options.zoom,
