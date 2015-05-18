@@ -23,6 +23,8 @@
     <script type="text/javascript">
       $(document).ready(function() {
         var map = new MapsFactory({mapType: 'MapBox', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12, token: 'pk.eyJ1IjoiZGV2YmVldHJhY2siLCJhIjoiQnJWRW9KRSJ9.rzP0ete1yI1DxF8RUsw9QA'});
+
+        map.addMarker({lat: -33.4205452, lng: -70.5898197, infoWindow: {content: '<p>HTML Content</p>'}})
       });
     </script>
   </body>
