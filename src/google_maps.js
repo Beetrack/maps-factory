@@ -23,13 +23,11 @@ function GoogleMaps( options ) {
 }
 
 GoogleMaps.prototype.createMarker = function(options) {
-  if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
+  if (options.lat == undefined && options.lng == undefined) {
     throw 'No latitude or longitude defined.';
   }
+  options = parse_marker_options(options);
   var self = this,
-      details = options.details,
-      fences = options.fences,
-      outside = options.outside,
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
@@ -38,20 +36,14 @@ GoogleMaps.prototype.createMarker = function(options) {
 
   delete marker_options.lat;
   delete marker_options.lng;
-  delete marker_options.fences;
-  delete marker_options.outside;
 
   var marker = new google.maps.Marker(marker_options);
-
-  marker.fences = fences;
 
   if (options.infoWindow) {
     marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
   }
 
   google.maps.event.addListener(marker, 'click', function() {
-    this.details = details;
-
     if (options.click) {
       options.click.apply(this, [this]);
     }
@@ -62,6 +54,11 @@ GoogleMaps.prototype.createMarker = function(options) {
     }
   });
 
+  google.maps.event.addListener(marker, 'dragend', function() {
+    if (options.drag) {
+      options.drag.apply(this, [{position: {lat: this.position.k, lng: this.position.B} }]);
+    }
+  });
   return marker;
 };
 
@@ -73,21 +70,31 @@ GoogleMaps.prototype.hideInfoWindows = function() {
   }
 };
 
+// Options:
+// {
+//   lat: <latitude (required)>,
+//   lng: <longitude (required)>,
+//   infoWindow: <info window content>,
+//   label: <label text>,
+//   icon: {
+//           image: <url path>,
+//           size: [<width>, <height>],
+//           sprite_position: [<width>, <height>],
+//           anchor: [<width>, <height>],
+//           popupanchor: [<width>, <height>]
+//   },
+//   click: {
+//             active: <clickable>,
+//             callback: <click function>
+//   },
+//   drag: {
+//           active: <draggable>,
+//           callback: <drag function>
+//   }
+// }
 GoogleMaps.prototype.addMarker = function(options) {
-  var marker;
-  if(options.hasOwnProperty('gm_accessors_')) {
-    // Native google.maps.Marker object
-    marker = options;
-  }
-  else {
-    marker = this.createMarker(options);
-  }
+  var marker = this.createMarker(options);
   marker.setMap(this.map);
-
-  if(this.markerClusterer) {
-    this.markerClusterer.addMarker(marker);
-  }
-
   this.markers.push(marker);
   return marker;
 };
@@ -97,10 +104,6 @@ GoogleMaps.prototype.removeMarker = function(marker) {
     if (this.markers[i] === marker) {
       this.markers[i].setMap(null);
       this.markers.splice(i, 1);
-
-      if(this.markerClusterer) {
-        this.markerClusterer.removeMarker(marker);
-      }
       break;
     }
   }
