@@ -9,11 +9,14 @@ var parse_marker_options = function(obj) {
     };
   }
   if (!!obj.icon) {
+    obj.icon.size = obj.icon.size || [50, 50];
+    obj.icon.sprite_position = obj.icon.sprite_position || [0,0];
+    obj.icon.anchor = obj.icon.anchor || [25, 25];
     result.icon = new google.maps.MarkerImage(
       obj.icon.image,
-      new google.maps.Size( obj.icon.size[0] , obj.icon.size[1]),
-      new google.maps.Point( obj.icon.sprite_position[0] , obj.icon.sprite_position[1] ),
-      new google.maps.Point( obj.icon.anchor[0] , obj.icon.anchor[1] )
+      new google.maps.Size( obj.icon.size[0], obj.icon.size[1]),
+      new google.maps.Point( obj.icon.sprite_position[0], obj.icon.sprite_position[1]),
+      new google.maps.Point( obj.icon.anchor[0], obj.icon.anchor[1])
     );
   }
   if (!!obj.click) {
