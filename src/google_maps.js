@@ -2,6 +2,7 @@ function GoogleMaps( options ) {
   this.options = {};
   this.markers = [];
   this.polylines = [];
+  this.circles = [];
   // some defaults
   this.options.div = options.div || "#maps";
 
@@ -170,6 +171,25 @@ GoogleMaps.prototype.geocode = function(options) {
   this.geocoder.geocode(options, function(results, status) {
     callback(results, status);
   });
+};
+
+GoogleMaps.prototype.addCircle = function(options) {
+  if (options.lat == undefined && options.lng == undefined && options.radius == undefined) {
+    throw 'No latitude, longitude or radius defined.';
+  }
+  var base_options = {
+    center: new google.maps.LatLng(options.lat, options.lng),
+    map: null
+  };
+  var circle_options = extend_object(base_options, options);
+  delete circle_options.lat;
+  delete circle_options.lng;
+  var circle = new google.maps.Circle(circle_options);
+  circle.setMap(this.map);
+  
+  this.circles.push(circle);
+
+  return circle;
 };
 
 GoogleMaps.prototype.setCenter = function(lat, lng, callback) {

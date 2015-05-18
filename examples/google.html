@@ -21,6 +21,7 @@
         var map = new MapsFactory({mapType: 'GoogleMaps', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
         var marker = map.addMarker({lat: -33.4205452, lng: -70.5898197, infoWindow: {content: '<p>HTML Content</p>'}})
 
+        var circle = map.addCircle({lat: -33.44, lng: -70.599, radius: 500})
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
         map.drawPolyline({
           path: bounds,
