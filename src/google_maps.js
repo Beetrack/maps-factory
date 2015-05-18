@@ -72,28 +72,6 @@ GoogleMaps.prototype.hideInfoWindows = function() {
   }
 };
 
-// Options:
-// {
-//   lat: <latitude (required)>,
-//   lng: <longitude (required)>,
-//   infoWindow: <info window content>,
-//   label: <label text>,
-//   icon: {
-//           image: <url path>,
-//           size: [<width>, <height>],
-//           sprite_position: [<width>, <height>],
-//           anchor: [<width>, <height>],
-//           popupanchor: [<width>, <height>]
-//   },
-//   click: {
-//             active: <clickable>,
-//             callback: <click function>
-//   },
-//   drag: {
-//           active: <draggable>,
-//           callback: <drag function>
-//   }
-// }
 GoogleMaps.prototype.addMarker = function(options) {
   var marker = this.createMarker(options);
   marker.setMap(this.map);
