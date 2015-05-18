@@ -141,7 +141,7 @@ GoogleMaps.prototype.drawPolyline = function(options) {
   return polyline;
 };
 
-GoogleMaps.geocode = function(options) {
+GoogleMaps.prototype.geocode = function(options) {
   this.geocoder = new google.maps.Geocoder();
   var callback = options.callback;
   if (options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) {
@@ -155,4 +155,12 @@ GoogleMaps.geocode = function(options) {
   this.geocoder.geocode(options, function(results, status) {
     callback(results, status);
   });
+};
+
+GoogleMaps.prototype.setCenter = function(lat, lng, callback) {
+  this.map.panTo(new google.maps.LatLng(lat, lng));
+
+  if (callback) {
+    callback();
+  }
 };
