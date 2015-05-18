@@ -21,6 +21,8 @@ function GoogleMaps( options ) {
 
   this.map = new google.maps.Map(getElementById(this.options.div), this.mapOptions);
 }
+//static methods of basemap
+GoogleMaps.prototype = new BaseMap();
 
 GoogleMaps.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined) {
