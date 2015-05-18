@@ -91,6 +91,21 @@ GoogleMaps.prototype.addMarker = function(options) {
   return marker;
 };
 
+GoogleMaps.prototype.removeMarker = function(marker) {
+  for (var i = 0; i < this.markers.length; i++) {
+    if (this.markers[i] === marker) {
+      this.markers[i].setMap(null);
+      this.markers.splice(i, 1);
+
+      if(this.markerClusterer) {
+        this.markerClusterer.removeMarker(marker);
+      }
+      break;
+    }
+  }
+  return marker;
+};
+
 GoogleMaps.prototype.drawPolyline = function(options) {
   var path = [],
       points = options.path;
@@ -167,9 +182,17 @@ GoogleMaps.prototype.setCenter = function(lat, lng, callback) {
 
 GoogleMaps.prototype.fitBounds = function(array) {
   var bounds = new google.maps.LatLngBounds();
-  for (var index in array) {
-    var waypoint = new google.maps.LatLng(array[index][0],array[index][1])
-    bounds.extend(waypoint);
+  if(!!array){
+    for (var index in array) {
+      var waypoint = new google.maps.LatLng(array[index][0],array[index][1]);
+      bounds.extend(waypoint);
+    }
+  }
+  else{
+    for (var index in this.markers) {
+      bounds.extend(this.markers[index].getPosition());
+    }
+
   }
   if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
     var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
