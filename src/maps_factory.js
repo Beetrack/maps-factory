@@ -6,8 +6,11 @@ function MapsFactory ( options ) {
     case "GoogleMaps":
       this.mapClass = GoogleMaps;
       break;
+      case "Lefletjs":
+      this.mapClass = Lefletjs;
+      break;
     default:
-      this.mapClass = MapBox;
+      this.mapClass = Lefletjs;
   }
 
   return new this.mapClass( options );
