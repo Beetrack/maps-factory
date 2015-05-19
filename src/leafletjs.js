@@ -53,3 +53,22 @@ Leafletjs.prototype.removeMarker = function(marker) {
   }
   return marker;
 };
+
+Leafletjs.prototype.drawPolyline = function(options) {
+  var path = [],
+  points = options.path;
+
+
+  var polyline = L.polyline(points, 
+  	{
+  		color: options.strokeColor,
+  		opacity: options.strokeOpacity,
+      weight:  options.strokeWeight,
+      fillColor: options.fillColor,
+      fillOpacity: options.fillOpacity
+  	});
+
+	polyline.addTo(this.map);
+  return polyline;
+};
+

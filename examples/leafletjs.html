@@ -38,8 +38,16 @@
                 anchor: [17, 36],
                 popup_anchor: false
               } 
-            }
-          )
+            });
+        var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
+        var popyline = map.drawPolyline({
+          path: bounds,
+          strokeColor: '#000',
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          fillColor: '#BBD',
+          fillOpacity: 0.2
+        });
       });
     </script>
   </body>
