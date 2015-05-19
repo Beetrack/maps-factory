@@ -24,7 +24,21 @@
       <script type="text/javascript">
       $(document).ready(function() {
         var map = new MapsFactory({mapType: 'Lefletjs', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
-        var marker = map.addMarker({lat: -33.4205452, lng: -70.5898197, infoWindow: {content: '<p>HTML Content</p>'}})
+        var marker = map.addMarker(
+            {
+              lat: -33.4205452,
+              lng: -70.5898197,
+              infoWindow: '<p>HTML Content</p>',
+              click: {active: true, callback: function (argument) { console.log('click'); }},
+              drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }},
+              icon: {
+                image: "http://www.ipreferjim.com/site/wp-content/uploads/2012/10/markers.png?9d7bd4",
+                size: [35, 36],
+                sprite_position: [103, 34],
+                anchor: [17, 36]
+              } 
+            }
+          )
       });
     </script>
   </body>
