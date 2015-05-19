@@ -89,7 +89,7 @@ BaseMap.prototype.addCircle= function(options) {
 
 // Add a drawPolyline to the map
 // Options:
-//   {   
+//   {
 //     path: <bounds (required)>,
 //     strokeColor: <stroke color>,
 //     strokeOpacity: <stroke opacity>,

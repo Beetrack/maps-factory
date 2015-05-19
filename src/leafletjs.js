@@ -50,20 +50,20 @@ Leafletjs.prototype.createMarker = function(options) {
       icon: icon,
       draggable: options.draggable,
       clickable: options.clickable
-    })
-    .bindPopup(options.infoWindow)
-    .openPopup();
+    });
   }
   else {
     marker = L.marker([lat, lng], {
       title: options.infoWindow,
       draggable: options.draggable,
       clickable: options.clickable
-    })
-    .bindPopup(options.infoWindow)
-    .openPopup();
+    });
   }
 
+    marker.openPopup();
+    if(!!options.infoWindow){
+      marker.bindPopup(options.infoWindow)
+    }
   return marker;
 };
 
