@@ -15,7 +15,10 @@ function Leafletjs( options ) {
 Leafletjs.prototype = new BaseMap();
 
 Leafletjs.prototype.createMarker = function(options) {
-  if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
+  lat = parse.Float(options.lat);
+  lng = parse.Float(options.lng);
+
+  if (lat == undefined && lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
   }
 
@@ -35,7 +38,7 @@ Leafletjs.prototype.createMarker = function(options) {
     options.drag = options.drag.callback;
   }
 
-  var marker = L.marker([options.lat, options.lng], {
+  var marker = L.marker([lat, lng], {
   	title: options.infoWindow,
   	icon: icon,
   	draggable: options.draggable,
