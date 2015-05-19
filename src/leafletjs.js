@@ -36,7 +36,7 @@ Leafletjs.prototype.createMarker = function(options) {
 Leafletjs.prototype.addMarker = function(options) {
 	
   var marker = this.createMarker(options);
-  marker.addTo(this.map);
+  this.map.addLayer(marker);
   this.markers.push(marker);
   return marker;
 };
@@ -44,12 +44,8 @@ Leafletjs.prototype.addMarker = function(options) {
 Leafletjs.prototype.removeMarker = function(marker) {
   for (var i = 0; i < this.markers.length; i++) {
     if (this.markers[i] === marker) {
-      this.markers[i].setMap(null);
       this.markers.splice(i, 1);
-
-      if(this.markerClusterer) {
-        this.markerClusterer.removeMarker(marker);
-      }
+      this.map.removeLayer(marker);
       break;
     }
   }
@@ -59,7 +55,6 @@ Leafletjs.prototype.removeMarker = function(marker) {
 Leafletjs.prototype.drawPolyline = function(options) {
   var path = [],
   points = options.path;
-
 
   var polyline = L.polyline(points, 
   	{

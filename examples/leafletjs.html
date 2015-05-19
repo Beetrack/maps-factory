@@ -66,12 +66,17 @@
           fillOpacity: 0.2
         });
 
+        $("#remove_marker").click(function () {
+          map.removeMarker(map.markers[map.markers.length - 1]);
+        });
+
         $("#fit_bounds").click(function(){
             map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
         });
       });
     </script>
   
+<button id="remove_marker" style="float: left">Remove marker</button>  
 <button id="fit_bounds"  >fit Bounds </button>
   </body>
 </html>
