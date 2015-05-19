@@ -1,5 +1,6 @@
 function Leafletjs( options ) {
   this.options = {};
+  this.markers = [];
   // some defaults
   this.options.div = options.div || "#maps";
 
@@ -36,6 +37,7 @@ Leafletjs.prototype.addMarker = function(options) {
 	
   var marker = this.createMarker(options);
   marker.addTo(this.map);
+  this.markers.push(marker);
   return marker;
 };
 
@@ -72,3 +74,6 @@ Leafletjs.prototype.drawPolyline = function(options) {
   return polyline;
 };
 
+Leafletjs.prototype.fitBounds = function(array) {
+  this.map.fitBounds(array);
+};
