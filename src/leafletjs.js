@@ -112,7 +112,12 @@ Leafletjs.prototype.drawPolyline = function(options) {
 };
 
 Leafletjs.prototype.fitBounds = function(array) {
-  this.map.fitBounds(array);
+  if(array.length > 0){
+    this.map.fitBounds(array);
+  }
+  else{
+    this.fitBoundsWithMarkers(this.markers);
+  }
 };
 
 Leafletjs.prototype.fitBoundsWithMarkers = function(markers) {
