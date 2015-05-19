@@ -15,8 +15,8 @@ Leafletjs.prototype.createMarker = function(options) {
   var icon = L.icon({
     iconUrl: options.icon.image,
     iconSize:     options.icon.size,
-    iconAnchor:   options.icon.anchor
-    //popupAnchor:  options.icon.popupanchor
+    iconAnchor:   options.icon.anchor,
+    popupAnchor:  options.icon.popup_anchor
   });
 
   var marker = L.marker([options.lat, options.lng], {
@@ -35,11 +35,7 @@ Leafletjs.prototype.createMarker = function(options) {
 Leafletjs.prototype.addMarker = function(options) {
 	
   var marker = this.createMarker(options);
-
-  console.log("marker");
-  console.log(marker);
   marker.addTo(this.map);
-
   return marker;
 };
 
