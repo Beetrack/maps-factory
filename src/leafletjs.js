@@ -11,6 +11,9 @@ function Leafletjs( options ) {
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 }
 
+//static methods of basemap
+Leafletjs.prototype = new BaseMap();
+
 Leafletjs.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
