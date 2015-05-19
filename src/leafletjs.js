@@ -4,14 +4,21 @@ function Leafletjs( options ) {
   this.polylines = [];
   this.circles = [];
   // some defaults
-  this.options.div = options.div || "#maps";
+  this.options.div = options.div || "map";
+  this.options.div = this.options.div.replace('#', '');
 
-  this.map = L.map('map', { center: [options.lat, options.lng], zoom: options.zoom });
+  this.map = L.map(this.options.div, { center: [options.lat, options.lng], zoom: options.zoom });
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 }
 
+//static methods of basemap
+Leafletjs.prototype = new BaseMap();
+
 Leafletjs.prototype.createMarker = function(options) {
-  if (options.lat == undefined && options.lng == undefined) {
+  lat = parseFloat(options.lat);
+  lng = parseFloat(options.lng);
+
+  if (lat == undefined && lng == undefined) {
     throw 'No latitude or longitude defined.';
   }
 
@@ -38,7 +45,7 @@ Leafletjs.prototype.createMarker = function(options) {
       html: "<div style=\"" + background_image + background_position + "background-repeat: no-repeat;width: 100%;height: 100%;\"></div>"
     });
 
-    marker = L.marker([options.lat, options.lng], {
+    marker = L.marker([lat, lng], {
       title: options.infoWindow,
       icon: icon,
       draggable: options.draggable,
@@ -48,7 +55,7 @@ Leafletjs.prototype.createMarker = function(options) {
     .openPopup();
   }
   else {
-    marker = L.marker([options.lat, options.lng], {
+    marker = L.marker([lat, lng], {
       title: options.infoWindow,
       draggable: options.draggable,
       clickable: options.clickable
@@ -61,7 +68,6 @@ Leafletjs.prototype.createMarker = function(options) {
 };
 
 Leafletjs.prototype.addMarker = function(options) {
-	
   var marker = this.createMarker(options);
   this.map.addLayer(marker);
   this.markers.push(marker);
@@ -79,6 +85,14 @@ Leafletjs.prototype.removeMarker = function(marker) {
   return marker;
 };
 
+Leafletjs.prototype.removeMarkers = function(){
+  var markers_d = this.markers.slice(0);
+  for (var i = 0; i < markers_d.length; i++) {
+    this.markers.splice(i, 1);
+    this.map.removeLayer(markers_d[i]);
+  }
+}
+
 Leafletjs.prototype.addCircle = function(options) {
   if (options.lat == undefined && options.lng == undefined && options.radius == undefined) {
     throw 'No latitude, longitude or radius defined.';
@@ -91,7 +105,6 @@ Leafletjs.prototype.addCircle = function(options) {
     fillColor: options.fillColor,
     fillOpacity: options.fillOpacity
   }).addTo(this.map);
-  
   this.circles.push(circle);
 
   return circle;
@@ -101,20 +114,35 @@ Leafletjs.prototype.drawPolyline = function(options) {
   var path = [],
   points = options.path;
 
-  var polyline = L.polyline(points, 
-  	{
-  		color: options.strokeColor,
-  		opacity: options.strokeOpacity,
+  var polyline = L.polyline(points,
+    {
+      color: options.strokeColor,
+      opacity: options.strokeOpacity,
       weight:  options.strokeWeight,
       fillColor: options.fillColor,
       fillOpacity: options.fillOpacity
-  	});
+    });
 
-	polyline.addTo(this.map);
-  this.polylines.push(polyline);
-  return polyline;
+    polyline.addTo(this.map);
+    this.polylines.push(polyline);
+    return polyline;
 };
 
 Leafletjs.prototype.fitBounds = function(array) {
-  this.map.fitBounds(array);
+  if(array.length > 0){
+    this.map.fitBounds(array);
+  }
+  else{
+    this.fitBoundsWithMarkers(this.markers);
+  }
 };
+
+Leafletjs.prototype.fitBoundsWithMarkers = function(markers) {
+  var bounds = [];
+  for (var index in markers) {
+    var latlng = markers[index].getLatLng();
+    bounds.push([latlng.lat, latlng.lng]);
+  }
+  this.map.fitBounds(bounds);
+};
+
