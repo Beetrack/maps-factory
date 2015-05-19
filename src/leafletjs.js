@@ -15,8 +15,8 @@ function Leafletjs( options ) {
 Leafletjs.prototype = new BaseMap();
 
 Leafletjs.prototype.createMarker = function(options) {
-  lat = parse.Float(options.lat);
-  lng = parse.Float(options.lng);
+  lat = parseFloat(options.lat);
+  lng = parseFloat(options.lng);
 
   if (lat == undefined && lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
