@@ -80,3 +80,18 @@ BaseMap.prototype.hideInfoWindows = function() {
 BaseMap.prototype.addCircle= function(options) {
   throw 'Method undefined';
 };
+
+// Add a drawPolyline to the map
+// Options:
+//   {   
+//     path: <bounds (required)>,
+//     strokeColor: <stroke color>,
+//     strokeOpacity: <stroke opacity>,
+//     strokeWeight:  <stroke weight>,
+//     fillColor: <fill color>,
+//     fillOpacity: <fill opacity>
+//   }
+
+BaseMap.prototype.drawPolyline= function(options) {
+  throw 'Method undefined';
+};
