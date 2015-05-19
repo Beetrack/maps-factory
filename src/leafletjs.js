@@ -22,11 +22,20 @@ Leafletjs.prototype.createMarker = function(options) {
     popupAnchor:  options.icon.popup_anchor
   });
 
+  if (!!options.click) {
+    options.clickable = options.click.active;
+    options.click = options.click.callback;
+  }
+  if (!!options.drag) {
+    options.draggable = options.drag.active;
+    options.drag = options.drag.callback;
+  }
+
   var marker = L.marker([options.lat, options.lng], {
   	title: options.infoWindow, 
   	icon: icon,
-  	draggable: options.drag.active,
-  	clickable: options.click.active
+  	draggable: options.draggable,
+  	clickable: options.clickable
   })
  
   .bindPopup(options.infoWindow)
