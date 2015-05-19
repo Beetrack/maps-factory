@@ -53,17 +53,24 @@ Leafletjs.prototype.createMarker = function(options) {
     });
   }
   else {
-    marker = L.marker([lat, lng], {
-      title: options.infoWindow,
-      draggable: options.draggable,
-      clickable: options.clickable
-    });
-  }
+      marker = L.marker([lat, lng], {
+        title: options.infoWindow,
+        draggable: options.draggable,
+        clickable: options.clickable
+      });
+    }
 
     marker.openPopup();
     if(!!options.infoWindow){
       marker.bindPopup(options.infoWindow)
     }
+
+    if(!!options.click){
+      marker.on('click',function (e) {
+        options.click.apply([{position: {lat: this.getLatLng().lat, lng: this.getLatLng().lng}}]);
+      });
+    }
+
   return marker;
 };
 
