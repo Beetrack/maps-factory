@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <style>
       html, body, #map {
-        height: 100%;
+        height: 98%;
         margin: 0px;
         padding: 0px
       }
@@ -39,17 +39,54 @@
                 popup_anchor: false
               } 
             });
+
+        var marker2 = map.addMarker(
+            {
+              lat: -33.419717,
+              lng: -70.186986,
+              infoWindow: '<p>HTML Content</p>',
+              click: {active: true, callback: function (argument) { console.log('click'); }},
+              drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }},
+              icon: {
+                image: "http://www.ipreferjim.com/site/wp-content/uploads/2012/10/markers.png?9d7bd4",
+                size: [35, 36],
+                sprite_position: [103, 34],
+                anchor: [17, 36],
+                popup_anchor: false
+              } 
+            });
+
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
         var popyline = map.drawPolyline({
           path: bounds,
-          strokeColor: '#000',
+          strokeColor: 'red',
           strokeOpacity: 1,
           strokeWeight: 3,
           fillColor: '#BBD',
           fillOpacity: 0.2
         });
+
+        $("#remove_marker").click(function () {
+          map.removeMarker(map.markers[map.markers.length - 1]);
+        });
+
+        $("#fit_bounds").click(function(){
+            map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
+        });
+
+        var circle = map.addCircle({
+          strokeColor: 'red',
+          lat: -30.119717,
+          lng: -71.286986,
+          radius: 500,
+          strokeWeight: 10,
+          fillColor: '#dad',
+          fillOpacity: '#dad'
+        });
       });
     </script>
+  
+<button id="remove_marker" style="float: left">Remove marker</button>  
+<button id="fit_bounds"  >fit Bounds </button>
   </body>
-
 </html>
