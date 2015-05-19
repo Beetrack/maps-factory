@@ -36,7 +36,7 @@
                 size: [35, 36],
                 sprite_position: [103, 34],
                 anchor: [17, 36],
-                popup_anchor: false
+                popup_anchor: [0, -36]
               } 
             });
 
@@ -46,14 +46,7 @@
               lng: -70.186986,
               infoWindow: '<p>HTML Content</p>',
               click: {active: true, callback: function (argument) { console.log('click'); }},
-              drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }},
-              icon: {
-                image: "http://www.ipreferjim.com/site/wp-content/uploads/2012/10/markers.png?9d7bd4",
-                size: [35, 36],
-                sprite_position: [103, 34],
-                anchor: [17, 36],
-                popup_anchor: false
-              } 
+              drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }}
             });
 
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];

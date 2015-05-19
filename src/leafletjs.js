@@ -11,16 +11,9 @@ function Leafletjs( options ) {
 }
 
 Leafletjs.prototype.createMarker = function(options) {
-  if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
+  if (options.lat == undefined && options.lng == undefined) {
     throw 'No latitude or longitude defined.';
   }
-
-  var icon = L.icon({
-    iconUrl: options.icon.image,
-    iconSize:     options.icon.size,
-    iconAnchor:   options.icon.anchor,
-    popupAnchor:  options.icon.popup_anchor
-  });
 
   if (!!options.click) {
     options.clickable = options.click.active;
@@ -31,15 +24,38 @@ Leafletjs.prototype.createMarker = function(options) {
     options.drag = options.drag.callback;
   }
 
-  var marker = L.marker([options.lat, options.lng], {
-  	title: options.infoWindow, 
-  	icon: icon,
-  	draggable: options.draggable,
-  	clickable: options.clickable
-  })
- 
-  .bindPopup(options.infoWindow)
-  .openPopup();
+  var marker;
+
+  if (!!options.icon) {
+    var background_image = "background-image: url(" +  options.icon.image +");";
+    var background_position = "background-position: " + ( -1 * options.icon.sprite_position[0] ) + "px " + ( -1 * options.icon.sprite_position[1] ) + "px;";
+
+    var icon = L.divIcon({
+      className: 'none',
+      iconSize: options.icon.size,
+      iconAnchor: options.icon.anchor,
+      popupAnchor: options.icon.popup_anchor,
+      html: "<div style=\"" + background_image + background_position + "background-repeat: no-repeat;width: 100%;height: 100%;\"></div>"
+    });
+
+    marker = L.marker([options.lat, options.lng], {
+      title: options.infoWindow,
+      icon: icon,
+      draggable: options.draggable,
+      clickable: options.clickable
+    })
+    .bindPopup(options.infoWindow)
+    .openPopup();
+  }
+  else {
+    marker = L.marker([options.lat, options.lng], {
+      title: options.infoWindow,
+      draggable: options.draggable,
+      clickable: options.clickable
+    })
+    .bindPopup(options.infoWindow)
+    .openPopup();
+  }
 
   return marker;
 };
