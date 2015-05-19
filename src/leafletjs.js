@@ -1,6 +1,8 @@
 function Leafletjs( options ) {
   this.options = {};
   this.markers = [];
+  this.polylines = [];
+  this.circles = [];
   // some defaults
   this.options.div = options.div || "#maps";
 
@@ -52,6 +54,24 @@ Leafletjs.prototype.removeMarker = function(marker) {
   return marker;
 };
 
+Leafletjs.prototype.addCircle = function(options) {
+  if (options.lat == undefined && options.lng == undefined && options.radius == undefined) {
+    throw 'No latitude, longitude or radius defined.';
+  }
+
+  var circle = L.circle([options.lat, options.lng], options.radius, {
+    color: options.strokeColor,
+    opacity: options.strokeOpacity,
+    weight: options.strokeWeight,
+    fillColor: options.fillColor,
+    fillOpacity: options.fillOpacity
+  }).addTo(this.map);
+  
+  this.circles.push(circle);
+
+  return circle;
+};
+
 Leafletjs.prototype.drawPolyline = function(options) {
   var path = [],
   points = options.path;
@@ -66,6 +86,7 @@ Leafletjs.prototype.drawPolyline = function(options) {
   	});
 
 	polyline.addTo(this.map);
+  this.polylines.push(polyline);
   return polyline;
 };
 

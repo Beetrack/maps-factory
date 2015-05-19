@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <style>
       html, body, #map {
-        height: 90%;
+        height: 98%;
         margin: 0px;
         padding: 0px
       }
@@ -59,7 +59,7 @@
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
         var popyline = map.drawPolyline({
           path: bounds,
-          strokeColor: '#000',
+          strokeColor: 'red',
           strokeOpacity: 1,
           strokeWeight: 3,
           fillColor: '#BBD',
@@ -72,6 +72,16 @@
 
         $("#fit_bounds").click(function(){
             map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
+        });
+
+        var circle = map.addCircle({
+          strokeColor: 'red',
+          lat: -30.119717,
+          lng: -71.286986,
+          radius: 500,
+          strokeWeight: 10,
+          fillColor: '#dad',
+          fillOpacity: '#dad'
         });
       });
     </script>
