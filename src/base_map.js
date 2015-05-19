@@ -65,6 +65,12 @@ BaseMap.prototype.hideInfoWindows = function() {
   throw 'Method undefined';
 };
 
+// Close all info windows and open only the info window
+// of the given marker
+BaseMap.prototype.showInfoWindows = function(marker) {
+  throw 'Method undefined';
+};
+
 // Add a circle to the map
 // Options:
 // {
@@ -78,5 +84,10 @@ BaseMap.prototype.hideInfoWindows = function() {
 //   fillOpacity: <fill opacity>
 // }
 BaseMap.prototype.addCircle= function(options) {
+  throw 'Method undefined';
+};
+
+// Center map based on the markers given
+BaseMap.prototype.fitBoundsWithMarkers = function(markers) {
   throw 'Method undefined';
 };
