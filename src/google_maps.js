@@ -72,6 +72,13 @@ GoogleMaps.prototype.hideInfoWindows = function() {
   }
 };
 
+GoogleMaps.prototype.showInfoWindows = function(marker) {
+  if (!!marker) {
+    this.hideInfoWindows();
+    marker.infoWindow.open(this.map, marker);
+  }
+};
+
 GoogleMaps.prototype.addMarker = function(options) {
   var marker = this.createMarker(options);
   marker.setMap(this.map);
@@ -214,3 +221,13 @@ GoogleMaps.prototype.fitBounds = function(array) {
   this.map.fitBounds(bounds);
 };
 
+GoogleMaps.prototype.fitBoundsWithMarkers = function(markers) {
+  var bounds = [];
+  if (!markers || markers.length == 0) {
+    return;
+  }
+  for (var i = markers.length - 1; i >= 0; i--) {
+    bounds.push( [markers[i].getPosition().lat(), markers[i].getPosition().lng()] );
+  }
+  this.fitBounds(bounds);
+};
