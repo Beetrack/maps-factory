@@ -67,7 +67,13 @@ Leafletjs.prototype.createMarker = function(options) {
 
     if(!!options.click){
       marker.on('click',function (e) {
-        options.click.apply([{position: {lat: this.getLatLng().lat, lng: this.getLatLng().lng}}]);
+        options.click.apply(this);
+      });
+    }
+
+    if(!!options.drag){
+      marker.on('dragend',function (e) {
+        options.drag.apply(this,[{position: {lat: this.getLatLng().lat, lng: this.getLatLng().lng}}]);
       });
     }
 
