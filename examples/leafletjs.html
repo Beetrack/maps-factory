@@ -67,6 +67,14 @@
             map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
         });
 
+        $("#open_popup").click(function(){
+            map.showInfoWindows(marker2);
+        });
+
+        $("#close_popups").click(function(){
+            map.hideInfoWindows();
+        });
+
         var circle = map.addCircle({
           strokeColor: 'red',
           lat: -30.119717,
@@ -80,6 +88,8 @@
     </script>
   
 <button id="remove_marker" style="float: left">Remove marker</button>  
-<button id="fit_bounds"  >fit Bounds </button>
+<button id="fit_bounds">fit Bounds </button>
+<button id="open_popup">open popup </button>
+<button id="close_popups">close popups </button>
   </body>
 </html>

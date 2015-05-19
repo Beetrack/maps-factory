@@ -80,6 +80,19 @@ Leafletjs.prototype.createMarker = function(options) {
   return marker;
 };
 
+Leafletjs.prototype.hideInfoWindows = function() {
+  for (var i = 0, marker; marker = this.markers[i]; i++){
+    marker.closePopup();
+  }
+};
+
+Leafletjs.prototype.showInfoWindows = function(marker) {
+  if (!!marker) {
+    this.hideInfoWindows();
+    marker.openPopup();
+  }
+};
+
 Leafletjs.prototype.addMarker = function(options) {
   var marker = this.createMarker(options);
   this.map.addLayer(marker);
