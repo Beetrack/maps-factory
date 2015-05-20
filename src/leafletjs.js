@@ -31,6 +31,7 @@ Leafletjs.prototype.createMarker = function(options) {
     options.clickable = options.click.active;
     options.click = options.click.callback;
   }
+
   if (!!options.drag) {
     options.draggable = options.drag.active;
     options.drag = options.drag.callback;
@@ -188,19 +189,23 @@ Leafletjs.prototype.geocode = function(options) {
 
   var callback = function(results){
 
-    lat = parseFloat(results[0]['lat'])
-    lon = parseFloat(results[0]['lon'])
-
     if (results.length == 0) {
       options.callback(null, 'ERROR');
       return
     }
 
+    lat = parseFloat(results[0]['lat'])
+    lon = parseFloat(results[0]['lon'])
+    
     self.removeMarkers();
     self.addMarker({
       lat: lat,
       lng: lon,
-      drag: options.drag
+      drag: options.drag,
+      click: {
+        active: true,
+        callback: null
+      }
     });
 
     self.fitBounds();
@@ -211,19 +216,25 @@ Leafletjs.prototype.geocode = function(options) {
     self.addMarker({
       lat: options.position.lat,
       lng: options.position.lng,
-      drag: options.drag
+      drag: options.drag,
+      click: {
+        active: true,
+        callback: null
+      }
     });
     self.fitBounds();
   }
 
-  options.input.addEventListener("keypress", function(e) {
+  options.input.addEventListener("keydown", function(e) {
     if(e.keyCode == 13) { // enter key was pressed
+      e.preventDefault();
+      
       var osmGeocoder = new L.Control.OSMGeocoder({
         input: options.input,
         callback: callback
       });
       self.map.addControl(osmGeocoder);
-      e.preventDefault();
+      
       return false;
     }
   });
