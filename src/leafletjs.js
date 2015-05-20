@@ -6,6 +6,7 @@ function Leafletjs( options ) {
   // some defaults
   this.options.div = options.div || "map";
   this.options.div = this.options.div.replace('#', '');
+  this.options.zoom = this.options.zoom || 8;
 
   this.map = L.map(this.options.div, { center: [options.lat, options.lng], zoom: options.zoom });
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
