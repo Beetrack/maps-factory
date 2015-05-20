@@ -155,6 +155,7 @@ GoogleMaps.prototype.drawPolyline = function(options) {
 };
 
 GoogleMaps.prototype.geocode = function(options) {
+  var self = this;
   if (!options.callback || !options.input) {
     return;
   }
@@ -166,7 +167,30 @@ GoogleMaps.prototype.geocode = function(options) {
       callback(null, 'ERROR');
       return;
     }
+    self.removeMarkers();
+    self.addMarker({
+      lat: place.geometry.location.k,
+      lng: place.geometry.location.B,
+      drag: options.drag
+    });
+    self.fitBounds();
     callback({position: {lat: place.geometry.location.k, lng: place.geometry.location.B} }, 'OK');
+  });
+
+  if (!!options.position) {
+    self.addMarker({
+      lat: options.position.lat,
+      lng: options.position.lng,
+      drag: options.drag
+    });
+    self.fitBounds();
+  }
+
+  options.input.addEventListener("keydown", function(e) {
+    if(e.keyCode == 13) { // enter key was pressed
+      e.preventDefault();
+      return false;
+    }
   });
 };
 
