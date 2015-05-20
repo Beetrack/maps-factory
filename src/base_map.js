@@ -71,6 +71,16 @@ BaseMap.prototype.showInfoWindows = function(marker) {
   throw 'Method undefined';
 };
 
+// Find the latitude and longitude from a given input.
+// Options:
+// {
+//   input: <html input>,
+//   callback: <geocode end function ( { position: {lat: <float>, lng: <float> } } , status: "OK" | "ERROR" )>
+// }
+BaseMap.prototype.geocode = function(options) {
+  throw 'Method undefined';
+};
+
 // Add a circle to the map
 // Options:
 // {

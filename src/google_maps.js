@@ -155,18 +155,18 @@ GoogleMaps.prototype.drawPolyline = function(options) {
 };
 
 GoogleMaps.prototype.geocode = function(options) {
-  this.geocoder = new google.maps.Geocoder();
-  var callback = options.callback;
-  if (options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) {
-    options.latLng = new google.maps.LatLng(options.lat, options.lng);
+  if (!options.callback || !options.input) {
+    return;
   }
-
-  delete options.lat;
-  delete options.lng;
-  delete options.callback;
-
-  this.geocoder.geocode(options, function(results, status) {
-    callback(results, status);
+  var callback = options.callback;
+  var autocomplete = new google.maps.places.Autocomplete(options.input, {types: ['geocode']});
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      callback(null, 'ERROR');
+      return;
+    }
+    callback({position: {lat: place.geometry.location.k, lng: place.geometry.location.B} }, 'OK');
   });
 };
 
