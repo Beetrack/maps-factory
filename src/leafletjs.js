@@ -192,9 +192,9 @@ Leafletjs.prototype.geocode = function(options) {
     lon = parseFloat(results[0]['lon'])
 
     if (results.length == 0) {
-          options.callback({position: {lat: lat, lng: lon} }, 'ERROR');
-          return
-      }
+      options.callback(null, 'ERROR');
+      return
+    }
 
     self.removeMarkers();
     self.addMarker({
@@ -203,7 +203,7 @@ Leafletjs.prototype.geocode = function(options) {
       drag: options.drag
     });
 
-    self.fitBoundsWithMarkers(self.markers);
+    self.fitBounds();
     options.callback({result: {lat: lat, lng: lon, name: results[0].display_name} }, 'OK');
   };
 

@@ -75,7 +75,7 @@ BaseMap.prototype.showInfoWindows = function(marker) {
 // Options:
 // {
 //   input: <html input>,
-//   callback: <geocode end function ( { position: {lat: <float>, lng: <float> } } , status: "OK" | "ERROR" )>
+//   callback: <geocode end function ( { result: {lat: <float>, lng: <float>, name: <string> } } , status: "OK" | "ERROR" )>
 //   drag : {
 //    active: true | false,
 //    callback: <drag end function>
