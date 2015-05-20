@@ -48,28 +48,22 @@
         });
 
         var input = document.getElementById('address');
-        var options = {
-          types: ['geocode']
-          //componentRestrictions: {country: 'cl'}
-        };
 
-        autocomplete = new google.maps.places.Autocomplete(input, options);
-
-        $('#geocoding_form').submit(function(e){
-          e.preventDefault();
-          map.geocode({
-            address: $('#address').val().trim(),
-            callback: function(results, status){
-              if(status=='OK'){
-                var latlng = results[0].geometry.location;
-                map.setCenter(latlng.lat(), latlng.lng());
-                map.addMarker({
-                  lat: latlng.lat(),
-                  lng: latlng.lng()
-                });
-              }
+        map.geocode({
+          input: input,
+          callback: function(results, status){
+            console.log(results);
+            console.log(status);
+            if(status=='OK'){
+              var lat = results.position.lat;
+              var lng = results.position.lng;
+              map.setCenter(lat, lng);
+              map.addMarker({
+                lat: lat,
+                lng: lng
+              });
             }
-          });
+          }
         });
 
         $("#remove_marker").click(function () {
@@ -91,13 +85,9 @@
   </body>
   <div id="map" style="height: 90%" ></div>
   <div id="buttons">
-    <form method="post" id="geocoding_form" style="float: right" >
-      <label for="address">Address:</label>
-      <div class="input">
-        <input type="text" id="address" name="address" />
-        <input type="submit" class="btn" value="Search" />
-      </div>
-    </form>
+    <div class="input" style="float: right">
+      <input type="text" id="address" name="address" />
+    </div>
     <button id="remove_marker" style="float: left">Remove marker</button>
     <button id="fit_bounds"  >fit Bounds </button>
   </div>

@@ -34,7 +34,7 @@ BaseMap.prototype.lineDistance = function(waypoints) {
 //           size: [<width>, <height>],
 //           sprite_position: [<width>, <height>],
 //           anchor: [<width>, <height>],
-//           popupanchor: [<width>, <height>]
+//           popup_anchor: [<width>, <height>]
 //   },
 //   click: {
 //             active: <clickable>,
@@ -68,6 +68,16 @@ BaseMap.prototype.hideInfoWindows = function() {
 // Close all info windows and open only the info window
 // of the given marker
 BaseMap.prototype.showInfoWindows = function(marker) {
+  throw 'Method undefined';
+};
+
+// Find the latitude and longitude from a given input.
+// Options:
+// {
+//   input: <html input>,
+//   callback: <geocode end function ( { position: {lat: <float>, lng: <float> } } , status: "OK" | "ERROR" )>
+// }
+BaseMap.prototype.geocode = function(options) {
   throw 'Method undefined';
 };
 

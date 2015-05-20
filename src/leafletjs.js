@@ -6,8 +6,11 @@ function Leafletjs( options ) {
   // some defaults
   this.options.div = options.div || "map";
   this.options.div = this.options.div.replace('#', '');
+  this.options.zoom = options.zoom || 1;
+  this.options.lat = options.lat || 0;
+  this.options.lng = options.lng || 0;
 
-  this.map = L.map(this.options.div, { center: [options.lat, options.lng], zoom: options.zoom });
+  this.map = L.map(this.options.div, { center: [this.options.lat, this.options.lng], zoom: this.options.zoom });
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(this.map);
@@ -48,7 +51,7 @@ Leafletjs.prototype.createMarker = function(options) {
     });
 
     marker = L.marker([lat, lng], {
-      title: options.infoWindow,
+      title: options.label,
       icon: icon,
       draggable: options.draggable,
       clickable: options.clickable
@@ -56,7 +59,7 @@ Leafletjs.prototype.createMarker = function(options) {
   }
   else {
       marker = L.marker([lat, lng], {
-        title: options.infoWindow,
+        title: options.label,
         draggable: options.draggable,
         clickable: options.clickable
       });
@@ -160,16 +163,19 @@ Leafletjs.prototype.fitBounds = function(array) {
   if(array.length > 0){
     this.map.fitBounds(array);
   }
-  else{
+  else if(!!this.markers){
     this.fitBoundsWithMarkers(this.markers);
   }
 };
 
 Leafletjs.prototype.fitBoundsWithMarkers = function(markers) {
   var bounds = [];
+  if(markers.length == 0){ return; }
   for (var index in markers) {
-    var latlng = markers[index].getLatLng();
-    bounds.push([latlng.lat, latlng.lng]);
+    if(!!markers[index]){
+      var latlng = markers[index].getLatLng();
+        bounds.push([latlng.lat, latlng.lng]);
+    }
   }
   this.map.fitBounds(bounds);
 };
