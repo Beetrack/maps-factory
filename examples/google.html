@@ -55,11 +55,12 @@
             console.log(results);
             console.log(status);
             if(status=='OK'){
-              var latlng = results[0].geometry.location;
-              map.setCenter(latlng.lat(), latlng.lng());
+              var lat = results.position.lat;
+              var lng = results.position.lng;
+              map.setCenter(lat, lng);
               map.addMarker({
-                lat: latlng.lat(),
-                lng: latlng.lng()
+                lat: lat,
+                lng: lng
               });
             }
           }
