@@ -174,3 +174,10 @@ Leafletjs.prototype.fitBoundsWithMarkers = function(markers) {
   this.map.fitBounds(bounds);
 };
 
+Leafletjs.prototype.geocode = function(options) {
+    var osmGeocoder = new L.Control.OSMGeocoder({
+      input: options.input
+    });
+    this.map.addControl(osmGeocoder);
+};
+
