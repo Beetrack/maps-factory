@@ -6,8 +6,11 @@ function Leafletjs( options ) {
   // some defaults
   this.options.div = options.div || "map";
   this.options.div = this.options.div.replace('#', '');
+  this.options.zoom = options.zoom || 8;
+  this.options.lat = options.lat || 0;
+  this.options.lng = options.lng || 0;
 
-  this.map = L.map(this.options.div, { center: [options.lat, options.lng], zoom: options.zoom });
+  this.map = L.map(this.options.div, { center: [this.options.lat, this.options.lng], zoom: this.options.zoom });
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(this.map);

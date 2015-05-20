@@ -34,7 +34,7 @@ BaseMap.prototype.lineDistance = function(waypoints) {
 //           size: [<width>, <height>],
 //           sprite_position: [<width>, <height>],
 //           anchor: [<width>, <height>],
-//           popupanchor: [<width>, <height>]
+//           popup_anchor: [<width>, <height>]
 //   },
 //   click: {
 //             active: <clickable>,
