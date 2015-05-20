@@ -174,7 +174,7 @@ GoogleMaps.prototype.geocode = function(options) {
       drag: options.drag
     });
     self.fitBounds();
-    callback({position: {lat: place.geometry.location.k, lng: place.geometry.location.B} }, 'OK');
+    callback({result: {lat: place.geometry.location.k, lng: place.geometry.location.B, name: place.formatted_address} }, 'OK');
   });
 
   if (!!options.position) {
