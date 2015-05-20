@@ -76,6 +76,15 @@ BaseMap.prototype.showInfoWindows = function(marker) {
 // {
 //   input: <html input>,
 //   callback: <geocode end function ( { position: {lat: <float>, lng: <float> } } , status: "OK" | "ERROR" )>
+//   drag : {
+//    active: true | false,
+//    callback: <drag end function>
+//    },
+//    position: {
+//      lat: lat,
+//      lng: lng
+//      }
+//    }
 // }
 BaseMap.prototype.geocode = function(options) {
   throw 'Method undefined';
