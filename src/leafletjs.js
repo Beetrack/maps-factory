@@ -8,7 +8,9 @@ function Leafletjs( options ) {
   this.options.div = this.options.div.replace('#', '');
 
   this.map = L.map(this.options.div, { center: [options.lat, options.lng], zoom: options.zoom });
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(this.map);
 }
 
 //static methods of basemap
@@ -78,6 +80,19 @@ Leafletjs.prototype.createMarker = function(options) {
     }
 
   return marker;
+};
+
+Leafletjs.prototype.hideInfoWindows = function() {
+  for (var i = 0, marker; marker = this.markers[i]; i++){
+    marker.closePopup();
+  }
+};
+
+Leafletjs.prototype.showInfoWindows = function(marker) {
+  if (!!marker) {
+    this.hideInfoWindows();
+    marker.openPopup();
+  }
 };
 
 Leafletjs.prototype.addMarker = function(options) {
