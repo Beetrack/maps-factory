@@ -15,14 +15,16 @@
     </style>
     <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-	  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	  <script src="../src/Control.OSMGeocoder.js"></script>
+    <!--<link rel="stylesheet" href="../src/Control.OSMGeocoder.css" />-->
     <script src="../maps_factory.min.js" type="text/javascript"></script>
-
   </head>
   <body>
   <div id="map"></div>
       <script type="text/javascript">
       $(document).ready(function() {
+
         var map = new MapsFactory({mapType: 'Lefletjs', div: '#map', lat: -33.4205452, lng: -70.5898197, zoom: 12});
         var marker = map.addMarker(
             {
@@ -84,6 +86,20 @@
           fillColor: '#dad',
           fillOpacity: '#dad'
         });
+       
+        input = document.getElementById($('#buscar').attr('id'));
+        map.geocode({ 
+          input: input,
+          drag : {
+           active: false,
+           callback: function (argument) { console.log('click'); },
+           },
+           position: {
+             lat: -30.119717,
+             lng: -71.286986
+             },
+           callback: function (argument) { console.log('click'); },
+        });
       });
     </script>
   
@@ -91,5 +107,6 @@
 <button id="fit_bounds">fit Bounds </button>
 <button id="open_popup">open popup </button>
 <button id="close_popups">close popups </button>
+Buscar <input type="text" name='search' id ='buscar'>
   </body>
 </html>

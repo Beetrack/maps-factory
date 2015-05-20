@@ -160,7 +160,10 @@ Leafletjs.prototype.drawPolyline = function(options) {
 };
 
 Leafletjs.prototype.fitBounds = function(array) {
-  if(array.length > 0){
+  if(!array){
+    this.fitBoundsWithMarkers(this.markers);
+  }
+  else if(array.length > 0){
     this.map.fitBounds(array);
   }
   else if(!!this.markers){
@@ -181,9 +184,47 @@ Leafletjs.prototype.fitBoundsWithMarkers = function(markers) {
 };
 
 Leafletjs.prototype.geocode = function(options) {
-    var osmGeocoder = new L.Control.OSMGeocoder({
-      input: options.input
-    });
-    this.map.addControl(osmGeocoder);
-};
+  self = this
 
+  var callback = function(results){
+
+    lat = parseFloat(results[0]['lat'])
+    lon = parseFloat(results[0]['lon'])
+
+    if (results.length == 0) {
+          options.callback({position: {lat: lat, lng: lon} }, 'ERROR');
+          return
+      }
+
+    self.removeMarkers();
+    self.addMarker({
+      lat: lat,
+      lng: lon,
+      drag: options.drag
+    });
+
+    self.fitBoundsWithMarkers(self.markers);
+    options.callback({result: {lat: lat, lng: lon, name: results[0].display_name} }, 'OK');
+  };
+
+  if (!!options.position) {
+    self.addMarker({
+      lat: options.position.lat,
+      lng: options.position.lng,
+      drag: options.drag
+    });
+    self.fitBounds();
+  }
+
+  options.input.addEventListener("keypress", function(e) {
+    if(e.keyCode == 13) { // enter key was pressed
+      var osmGeocoder = new L.Control.OSMGeocoder({
+        input: options.input,
+        callback: callback
+      });
+      self.map.addControl(osmGeocoder);
+      e.preventDefault();
+      return false;
+    }
+  });
+};
