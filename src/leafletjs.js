@@ -160,6 +160,25 @@ Leafletjs.prototype.drawPolyline = function(options) {
     return polyline;
 };
 
+Leafletjs.prototype.removePolyline = function(polyline) {
+  for (var i = 0; i < this.polylines.length; i++) {
+    if (this.polylines[i] === polyline) {
+      this.polylines.splice(i, 1);
+      this.map.removeLayer(polyline);
+      break;
+    }
+  }
+  return polyline;
+};
+
+Leafletjs.prototype.removePolylines = function(){
+  var polylines_d = this.polylines.slice(0);
+  for (var i = 0; i < polylines_d.length; i++) {
+    this.polylines.splice(i, 1);
+    this.map.removeLayer(polylines_d[i]);
+  }
+};
+
 Leafletjs.prototype.fitBounds = function(array) {
   if(!array){
     this.fitBoundsWithMarkers(this.markers);
@@ -191,11 +210,11 @@ Leafletjs.prototype.geocode = function(options) {
 
     if (results.length == 0) {
       options.callback(null, 'ERROR');
-      return
+      return;
     }
 
-    lat = parseFloat(results[0]['lat'])
-    lon = parseFloat(results[0]['lon'])
+    lat = parseFloat(results[0]['lat']);
+    lon = parseFloat(results[0]['lon']);
     
     self.removeMarkers();
     self.addMarker({
@@ -225,17 +244,26 @@ Leafletjs.prototype.geocode = function(options) {
     self.fitBounds();
   }
 
-  options.input.addEventListener("keydown", function(e) {
+  var geocode_function = function(e) {
+    var osmGeocoder = new L.Control.OSMGeocoder({
+      input: options.input,
+      callback: callback
+    });
+    self.map.addControl(osmGeocoder);
+    
+    return false;
+  };
+
+  options.input.addEventListener("keydown", function (e) {
     if(e.keyCode == 13) { // enter key was pressed
       e.preventDefault();
-      
-      var osmGeocoder = new L.Control.OSMGeocoder({
-        input: options.input,
-        callback: callback
-      });
-      self.map.addControl(osmGeocoder);
-      
-      return false;
+      geocode_function(e);
     }
   });
+
+  if (!!options.search_input) {
+    options.search_input.addEventListener("click", function (e) {
+      geocode_function(e);
+    });
+  }
 };

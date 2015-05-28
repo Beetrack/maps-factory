@@ -88,8 +88,10 @@
         });
        
         input = document.getElementById($('#buscar').attr('id'));
+        search_input = document.getElementById("geocode");
         map.geocode({ 
           input: input,
+          search_input: search_input,
           drag : {
            active: true,
            callback: function (argument) { console.log('click'); },
@@ -108,5 +110,6 @@
 <button id="open_popup">open popup </button>
 <button id="close_popups">close popups </button>
 Buscar <input type="text" name='search' id ='buscar'>
+<button id="geocode">search</button>
   </body>
 </html>

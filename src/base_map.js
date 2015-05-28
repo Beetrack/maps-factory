@@ -76,15 +76,15 @@ BaseMap.prototype.showInfoWindows = function(marker) {
 // {
 //   input: <html input>,
 //   callback: <geocode end function ( { result: {lat: <float>, lng: <float>, name: <string> } } , status: "OK" | "ERROR" )>
+//   search_input: <(optional) html input>
 //   drag : {
 //    active: true | false,
 //    callback: <drag end function { position: {lat: <float>, lng: <float> } } >
-//    },
-//    position: {
-//      lat: lat,
-//      lng: lng
-//      }
-//    }
+//   },
+//   position: {
+//     lat: lat,
+//     lng: lng
+//   }
 // }
 BaseMap.prototype.geocode = function(options) {
   throw 'Method undefined';
@@ -118,6 +118,14 @@ BaseMap.prototype.addCircle= function(options) {
 //   }
 
 BaseMap.prototype.drawPolyline= function(options) {
+  throw 'Method undefined';
+};
+
+BaseMap.prototype.removePolyline= function(polyline) {
+  throw 'Method undefined';
+};
+
+BaseMap.prototype.removePolylines= function(polyline) {
   throw 'Method undefined';
 };
 
