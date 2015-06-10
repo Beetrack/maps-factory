@@ -129,4 +129,10 @@ map.removePolyline(<polyline object>)
 ### examples
 * demo of each map provider on examples folder
 
+### Contributing
+* Create a new fork
+* Change only src files
+* Use grunt to change build configuration, add tests, lint-check, etc..
+
+
 This project uses MIT-LICENSE.
