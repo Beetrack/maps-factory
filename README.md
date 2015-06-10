@@ -93,7 +93,7 @@ map.addCircle( {
 ```
 ### fitBounds
 ```javascript
-map.fitBounds( [40.712, -74.227], [40.774, -74.125]);
+map.fitBounds( [[40.712, -74.227], [40.774, -74.125]]);
 ```
 
 ### fitBoundsWithMarkers
@@ -103,5 +103,25 @@ map.fitBoundsWithMarkers( [<markers objects>]);
 
 
 ### drawPolyline
+```javascript
+var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
+//return polyline
+var polyline = map.drawPolyline({
+  path: bounds,
+  strokeColor: 'red',
+  strokeOpacity: 1,
+  strokeWeight: 3,
+  fillColor: '#BBD',
+  fillOpacity: 0.2
+  });
+
+```
 
 ### removePolylines
+```javascript
+map.removePolyline(<polyline object>)
+
+```
+
+### examples
+* demo of each map provider on examples folder
