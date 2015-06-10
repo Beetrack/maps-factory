@@ -10,6 +10,10 @@ function Leafletjs( options ) {
   this.options.lat = options.lat || 0;
   this.options.lng = options.lng || 0;
 
+  if (!(typeof window.L === 'object')) {
+    throw 'Leaflet Maps API is required'
+  }
+
   this.map = L.map(this.options.div, { center: [this.options.lat, this.options.lng], zoom: this.options.zoom });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
