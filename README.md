@@ -90,16 +90,16 @@ map.addCircle( {
    fillOpacity: <fill opacity>
  }
 );
-``
+```
 ### fitBounds
 ```javascript
 map.fitBounds( [40.712, -74.227], [40.774, -74.125]);
-``
+```
 
 ### fitBoundsWithMarkers
 ```javascript
 map.fitBoundsWithMarkers( [<markers objects>]);
-``
+```
 
 
 ### drawPolyline
