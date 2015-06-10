@@ -135,4 +135,6 @@ map.removePolyline(<polyline object>)
 * Use grunt to change build configuration, add tests, lint-check, etc..
 
 
+
+
 This project uses MIT-LICENSE.
