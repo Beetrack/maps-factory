@@ -1,5 +1,8 @@
 # maps-factory
-### Start with MapsFactory
+
+Maps Factory is a abstraction layer between different maps providers. For the moment still on beta and only are implemented some methods between GoogleMap and LeaFletjs so any contribution will be appreciated.
+
+### init MapsFactory
 ```javascript
 //init MapsFactory
 var map = new MapsFactory({
