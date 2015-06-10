@@ -125,3 +125,5 @@ map.removePolyline(<polyline object>)
 
 ### examples
 * demo of each map provider on examples folder
+
+This project uses MIT-LICENSE.
