@@ -1,5 +1,6 @@
 function Leafletjs( options ) {
   this.options = {};
+  this.options.tileLayer = {};
   this.markers = [];
   this.polylines = [];
   this.circles = [];
@@ -9,19 +10,29 @@ function Leafletjs( options ) {
   this.options.zoom = options.zoom || 1;
   this.options.lat = options.lat || 0;
   this.options.lng = options.lng || 0;
+  this.options.tileLayer.url = options.tileLayer && options.tileLayer.url ? options.tileLayer.url : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  this.options.tileLayer.options = options.tileLayer && options.tileLayer.options ? options.tileLayer.options : {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}
+
 
   if (!(typeof window.L === 'object')) {
     throw 'Leaflet Maps API is required'
   }
 
-  this.map = L.map(this.options.div, { center: [this.options.lat, this.options.lng], zoom: this.options.zoom });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(this.map);
+  this.map = L.map(this.options.div, { center: [this.options.lat, this.options.lng], zoom: this.options.zoom});
+  L.tileLayer(this.options.tileLayer.url, this.options.tileLayer.url).addTo(this.map);
+
 }
 
 //static methods of basemap
 Leafletjs.prototype = new BaseMap();
+
+Leafletjs.prototype.removeMap = function(){
+  this.map.remove();
+}
+
+Leafletjs.prototype.clearLayers = function(){
+  this.map.clearLayers();
+}
 
 Leafletjs.prototype.createMarker = function(options) {
   lat = parseFloat(options.lat);
@@ -96,10 +107,15 @@ Leafletjs.prototype.hideInfoWindows = function() {
   }
 };
 
-Leafletjs.prototype.showInfoWindows = function(marker) {
+Leafletjs.prototype.showInfoWindows = function(marker, infoWindow) {
   if (!!marker) {
     this.hideInfoWindows();
-    marker.openPopup();
+    if(!!infoWindow) {
+      marker.bindPopup(infoWindow).openPopup();
+    }
+    else{
+      marker.openPopup();
+    }
   }
 };
 
@@ -145,6 +161,22 @@ Leafletjs.prototype.addCircle = function(options) {
 
   return circle;
 };
+
+Leafletjs.prototype.removeMarkers = function(){
+  var markers_d = this.markers.slice(0);
+  for (var i = 0; i < markers_d.length; i++) {
+    this.markers.splice(i, 1);
+    this.map.removeLayer(markers_d[i]);
+  }
+}
+
+Leafletjs.prototype.removeCircles = function(){
+  var circles_d = this.circles.slice(0);
+  for (var i = 0; i < circles_d.length; i++) {
+    this.circles.splice(i, 1);
+    this.map.removeLayer(circles_d[i]);
+  }
+}
 
 Leafletjs.prototype.drawPolyline = function(options) {
   var path = [],
@@ -271,3 +303,5 @@ Leafletjs.prototype.geocode = function(options) {
     });
   }
 };
+
+

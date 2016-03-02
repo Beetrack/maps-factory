@@ -23,7 +23,6 @@
           {
             lat: -33.4205452,
             lng: -70.5898197,
-            infoWindow: '<p>HTML Content</p>',
             click: {active: true, callback: function (argument) { console.log('click'); }},
             drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }},
             icon: {
@@ -34,10 +33,9 @@
             } 
           }
         )
-        map.showInfoWindows(marker);
 
         var circle = map.addCircle({lat: -33.44, lng: -70.599, radius: 500})
-        var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
+        var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197],[-37.4205452,-77.5898197]];
         map.drawPolyline({
           path: bounds,
           strokeColor: '#0000000',
@@ -52,8 +50,6 @@
         map.geocode({
           input: input,
           callback: function(results, status){
-            console.log(results);
-            console.log(status);
             if(status=='OK'){
               var lat = results.position.lat;
               var lng = results.position.lng;
@@ -69,6 +65,11 @@
         $("#remove_marker").click(function () {
           map.removeMarker(map.markers[map.markers.length - 1]);
         });
+
+        $("#open_popup").click(function(){
+          map.showInfoWindows(marker, '<p>Hello World</p>');
+        });
+
         $("#fit_bounds").click(function(){
           if(map.markers.length < 2){
             map.fitBounds([[-33.404492, -70.586343], [-33.419717, -70.586986]]);
@@ -90,5 +91,7 @@
     </div>
     <button id="remove_marker" style="float: left">Remove marker</button>
     <button id="fit_bounds"  >fit Bounds </button>
+    <button id="open_popup">open popup </button>
+    <button id="open_popup_second">open popup 2</button>
   </div>
 </html>

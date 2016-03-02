@@ -141,7 +141,7 @@ if ((typeof window.L === 'object')) {
       }
 
       //var protocol = location.protocol;
-      var protocol = 'http:'
+      var protocol = 'https:'
       var url = protocol + "//nominatim.openstreetmap.org/search" + L.Util.getParamString(params),
       script = document.createElement("script");
 

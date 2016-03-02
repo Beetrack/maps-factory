@@ -46,10 +46,11 @@
             {
               lat: -33.419717,
               lng: -70.186986,
-              infoWindow: '<p>HTML Content</p>',
               click: {active: true, callback: function (argument) { console.log('click'); }},
               drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }}
             });
+
+        map.showInfoWindows(marker2, '<p>Hello World</p>');
 
         var bounds = [[-33.4205452,-70.5898197],[-32.4205452,-70.5898197],[-34.4105452,-70.5898197],[-32.4505452,-71.5898197]];
         var popyline = map.drawPolyline({
@@ -70,7 +71,7 @@
         });
 
         $("#open_popup").click(function(){
-            map.showInfoWindows(marker2);
+            map.showInfoWindows(marker2, '<p>Hello World</p>');
         });
 
         $("#close_popups").click(function(){

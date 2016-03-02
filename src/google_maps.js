@@ -13,10 +13,12 @@ function GoogleMaps( options ) {
   this.options.zoom = options.zoom || 8;
   this.options.lat = options.lat || 0;
   this.options.lng = options.lng || 0;
+  this.options.styles = options.styles || false;
 
   this.mapOptions = {
     zoom: this.options.zoom,
-    center: new google.maps.LatLng(this.options.lat, this.options.lng)
+    center: new google.maps.LatLng(this.options.lat, this.options.lng),
+    styles: this.options.styles
   };
 
   this.map = new google.maps.Map(getElementById(this.options.div), this.mapOptions);
@@ -72,10 +74,21 @@ GoogleMaps.prototype.hideInfoWindows = function() {
   }
 };
 
-GoogleMaps.prototype.showInfoWindows = function(marker) {
+GoogleMaps.prototype.showInfoWindows = function(marker, contentString) {
+  var _this = this;
   if (!!marker) {
-    this.hideInfoWindows();
-    marker.infoWindow.open(this.map, marker);
+    if(!!contentString){
+      if(!marker.infoWindow)
+        marker.infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+      _this.hideInfoWindows();
+      marker.infoWindow.open(_this.map, marker);
+    }else{
+      _this.hideInfoWindows();
+      marker.infoWindow.open(_this.map, marker);
+    }
   }
 };
 
@@ -212,6 +225,13 @@ GoogleMaps.prototype.addCircle = function(options) {
 
   return circle;
 };
+
+GoogleMaps.prototype.removeMarkers = function(){
+  var circles = this.circles.slice(0);
+  for (var i = 0; i < circles.length; i++) {
+    circles[i].setMap(null);
+  }
+}
 
 GoogleMaps.prototype.setCenter = function(lat, lng, callback) {
   this.map.panTo(new google.maps.LatLng(lat, lng));
