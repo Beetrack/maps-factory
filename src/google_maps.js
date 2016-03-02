@@ -60,7 +60,7 @@ GoogleMaps.prototype.createMarker = function(options) {
 
   google.maps.event.addListener(marker, 'dragend', function() {
     if (options.drag) {
-      options.drag.apply(this, [{position: {lat: this.position.k, lng: this.position.B} }]);
+      options.drag.apply(this, [{position: {lat: this.position.lat(), lng: this.position.lng()} }]);
     }
   });
   return marker;
@@ -167,6 +167,24 @@ GoogleMaps.prototype.drawPolyline = function(options) {
   return polyline;
 };
 
+GoogleMaps.prototype.removePolyline = function(polyline) {
+  for (var i = 0; i < this.polylines.length; i++) {
+    if (this.polylines[i] === polyline) {
+      this.polylines.splice(i, 1);
+      polyline.setMap(null);
+      break;
+    }
+  }
+  return polyline;
+};
+
+GoogleMaps.prototype.removePolylines = function(){
+  var polylines_d = this.polylines.slice(0);
+  for (var i = 0; i < polylines_d.length; i++) {
+    this.removePolyline(polylines_d[i]);
+  }
+};
+
 GoogleMaps.prototype.geocode = function(options) {
   var self = this;
   if (!options.callback || !options.input) {
@@ -182,12 +200,12 @@ GoogleMaps.prototype.geocode = function(options) {
     }
     self.removeMarkers();
     self.addMarker({
-      lat: place.geometry.location.k,
-      lng: place.geometry.location.B,
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
       drag: options.drag
     });
     self.fitBounds();
-    callback({result: {lat: place.geometry.location.k, lng: place.geometry.location.B, name: place.formatted_address} }, 'OK');
+    callback({result: {lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), name: place.formatted_address} }, 'OK');
   });
 
   if (!!options.position) {
@@ -226,7 +244,7 @@ GoogleMaps.prototype.addCircle = function(options) {
   return circle;
 };
 
-GoogleMaps.prototype.removeMarkers = function(){
+GoogleMaps.prototype.removeCircles = function(){
   var circles = this.circles.slice(0);
   for (var i = 0; i < circles.length; i++) {
     circles[i].setMap(null);
