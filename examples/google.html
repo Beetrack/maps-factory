@@ -26,11 +26,18 @@
             click: {active: true, callback: function (argument) { console.log('click'); }},
             drag: {active: true, callback: function(ev) { console.log("dragged");console.log(ev); }},
             icon: {
-              image: "http://www.ipreferjim.com/site/wp-content/uploads/2012/10/markers.png?9d7bd4",
-              size: [35, 36],
-              sprite_position: [103, 34],
-              anchor: [17, 36]
-            } 
+              path: 'M 20 10.3333 C 20 11.8006 19.7852 13.0035 19.3555 13.946 L 12.2461 29.5671 C 12.0371 30.0111 11.7285 30.3602 11.3184 30.6165 C 10.9082 30.8729 10.4688 31 10 31 C 9.5313 31 9.0918 30.8729 8.6816 30.6165 C 8.2715 30.3602 7.9688 30.0111 7.7734 29.5671 L 0.6445 13.946 C 0.2148 13.0035 0 11.8006 0 10.3333 C 0 7.4816 0.9766 5.0456 2.9297 3.0273 C 4.8828 1.0091 7.2402 0 10 0 C 12.7598 0 15.1172 1.0091 17.0703 3.0273 C 19.0234 5.0456 20 7.4816 20 10.3333 L 20 10.3333 Z',
+              fillColor: '#23c6c8',
+              fillOpacity: 1,
+              strokeColor: '#037f66',
+              strokeWeight: 0.5,
+              labelOrigin: new google.maps.Point(10, 10),
+              labelInBackground: false
+            },
+            label: {
+              text: 'A',
+              color: '#FFF'
+            }
           }
         )
 
@@ -92,6 +99,5 @@
     <button id="remove_marker" style="float: left">Remove marker</button>
     <button id="fit_bounds"  >fit Bounds </button>
     <button id="open_popup">open popup </button>
-    <button id="open_popup_second">open popup 2</button>
   </div>
 </html>

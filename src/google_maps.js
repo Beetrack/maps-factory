@@ -32,7 +32,9 @@ GoogleMaps.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined) {
     throw 'No latitude or longitude defined.';
   }
+
   options = parse_marker_options(options);
+  
   var self = this,
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
