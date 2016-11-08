@@ -28,6 +28,25 @@ function GoogleMaps( options ) {
 //static methods of basemap
 GoogleMaps.prototype = new BaseMap();
 
+GoogleMaps.prototype.generateLatLng = function(lat, lng){
+  return new google.maps.LatLng(lat, lng);
+};
+
+GoogleMaps.prototype.createHeathMap = function(options){
+  var heathmap = new google.maps.visualization.HeatmapLayer(options);
+  heathmap.setMap(this.map);
+  
+  var bounds = new google.maps.LatLngBounds();
+  var length = options.data.length;
+  for (var i = length - 1; i >= 0; i--) {
+    bounds.extend(options.data[i]);
+  }
+
+  this.map.fitBounds(bounds);
+  
+  return heathmap;
+} 
+
 GoogleMaps.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined) {
     throw 'No latitude or longitude defined.';

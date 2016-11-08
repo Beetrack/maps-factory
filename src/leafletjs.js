@@ -34,6 +34,14 @@ Leafletjs.prototype.clearLayers = function(){
   this.map.clearLayers();
 }
 
+Leafletjs.prototype.generateLatLng = function(lat, lng){
+  return [lat, lng];
+}
+
+Leafletjs.prototype.createHeathMap = function(){
+  //Needs a plugin to create the heathmap
+}
+
 Leafletjs.prototype.createMarker = function(options) {
   lat = parseFloat(options.lat);
   lng = parseFloat(options.lng);

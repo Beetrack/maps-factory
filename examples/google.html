@@ -86,6 +86,19 @@
         }
         });
 
+        $('#heathmap').on('click', function(event){
+          map.createHeathMap({
+            data: [
+              map.generateLatLng(-33.4205452,-70.5898197),
+              map.generateLatLng(-32.4205452,-70.5898197),
+              map.generateLatLng(-32.4505452,-71.5898197),
+              map.generateLatLng(-37.4205452,-77.5898197)
+            ],
+            dissipating: true,
+            radius: 30
+          })
+        });
+
       });
     </script>
   </head>
@@ -99,5 +112,6 @@
     <button id="remove_marker" style="float: left">Remove marker</button>
     <button id="fit_bounds"  >fit Bounds </button>
     <button id="open_popup">open popup </button>
+    <button id="heathmap">heathmap</button>
   </div>
 </html>
